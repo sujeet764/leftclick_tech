@@ -5,6 +5,8 @@ from datetime import datetime
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 import os
+from dotenv import load_dotenv
+load_dotenv(dotenv_path="api.env")
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
@@ -14,9 +16,7 @@ def generate_gpt_insight(sales_summary):
     prompt = f"""
     You are a sales analyst. Here is the data for this week:
 
-    Total Sales: ${sales_summary['total_sales']}
-    Percentage Change from Last Week: {sales_summary['percent_change']}%
-    Top Products: {', '.join(sales_summary['top_products'])}
+    Total Sales: ${sales_summary['Weekly_Sales']}
 
     Write a concise paragraph (3-4 sentences) giving insights and recommendations.
     """
@@ -38,9 +38,7 @@ def create_pdf_report(sales_summary, insights):
     c.drawString(100, 750, "Weekly Sales Report")
 
     c.setFont("Helvetica", 12)
-    c.drawString(100, 720, f"Total Sales: ${sales_summary['total_sales']}")
-    c.drawString(100, 700, f"Change from Last Week: {sales_summary['percent_change']}%")
-    c.drawString(100, 680, f"Top Products: {', '.join(sales_summary['top_products'])}")
+    c.drawString(100, 720, f"Total Weekly Sales: ${sales_summary['Weekly_Sales']}")
 
     c.setFont("Helvetica-Bold", 14)
     c.drawString(100, 640, "Insights:")
@@ -62,3 +60,9 @@ def generate_insight():
 
 if __name__ == "__main__":
     app.run(port=5000, debug=True)
+
+
+
+
+from dotenv import load_dotenv
+load_dotenv()
