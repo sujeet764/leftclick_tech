@@ -2,3 +2,5 @@ flask
 openai
 reportlab
 requests
+python-dotenv
+
